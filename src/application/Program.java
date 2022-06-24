@@ -1,5 +1,6 @@
 package application;
 
+import entities.Product;
 import services.CalculationService;
 
 import javax.imageio.IIOException;
@@ -12,17 +13,18 @@ import java.util.List;
 public class Program {
     public static void main(String[] args){
 
-        List<Integer> list = new ArrayList<>();
+        List<Product> list = new ArrayList<>();
 
         String path = "D:\\para ser lido\\in.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(path))){
                 String line = br.readLine();
                 while (line != null){
-                    list.add(Integer.parseInt(line));
+                    String [] fields = line.split(",");
+                    list.add(new Product(fields[0], Double.parseDouble(fields[1])));
                     line = br.readLine();
                 }
-                Integer x = CalculationService.max(list);
+                Product x = CalculationService.max(list);
                 System.out.println("Max: ");
                 System.out.println(x);
         } catch (IIOException e ) {
